@@ -1,4 +1,4 @@
-package net.basicmodel.fragment
+package net.fragment
 
 import androidx.fragment.app.Fragment
 
@@ -9,5 +9,5 @@ import androidx.fragment.app.Fragment
  *
  * Desc :
  */
-class NearbyFragment:Fragment() {
+class InterActiveFragment : Fragment() {
 }

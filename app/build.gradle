@@ -42,4 +42,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:12.0.1'
 //    地图操作工具类，添加标记等
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
 }
