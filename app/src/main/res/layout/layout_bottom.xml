@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/map"
+            android:text="Map"
+            android:textAllCaps="true"
+            android:drawableTop="@mipmap/map"
+            style="@style/bottom_tv" />
+
+        <TextView
+            android:id="@+id/near"
+            android:text="Nearby"
+            android:textAllCaps="true"
+            android:drawableTop="@mipmap/nearby"
+            style="@style/bottom_tv" />
+
+        <TextView
+            android:id="@+id/street"
+            android:text="streetview"
+            android:textAllCaps="true"
+            android:drawableTop="@mipmap/streetview"
+            style="@style/bottom_tv" />
+
+        <TextView
+            android:id="@+id/interactive"
+            android:text="interactive"
+            android:drawableTop="@mipmap/interactive"
+            android:textAllCaps="true"
+            style="@style/bottom_tv" />
+
+    </LinearLayout>
+</LinearLayout>
