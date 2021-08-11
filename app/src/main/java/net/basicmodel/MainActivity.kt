@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
+import kotlinx.android.synthetic.main.layout_bottom.*
 import net.fragment.InterActiveFragment
 import net.fragment.MapFragment
 import net.fragment.NearbyFragment
@@ -31,9 +32,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestPermissions()
+        initView()
     }
 
-    fun showPosition(position: Int) {
+    private fun initView() {
+        map.setOnClickListener {
+            showPosition(0)
+        }
+        near.setOnClickListener {
+            showPosition(1)
+        }
+        street.setOnClickListener {
+            showPosition(2)
+        }
+        interactive.setOnClickListener {
+            showPosition(3)
+        }
+    }
+
+    private fun showPosition(position: Int) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
         hideAll(ft)
@@ -68,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (position == 3) {
-            interActiveFragment = fm.findFragmentByTag("interactive") as InterActiveFragment
+            interActiveFragment = fm.findFragmentByTag("interactive") as InterActiveFragment?
             if (interActiveFragment == null) {
                 interActiveFragment = InterActiveFragment()
                 ft.add(R.id.content, interActiveFragment!!, "interactive")
