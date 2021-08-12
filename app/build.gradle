@@ -39,7 +39,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 //    implementation 'net.qr.code.scan.sdk:QRZingEngine:1.4.4'
-    implementation 'com.google.android.gms:play-services-maps:12.0.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 //    地图操作工具类，添加标记等
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     implementation 'com.google.android.gms:play-services-places:17.0.0'

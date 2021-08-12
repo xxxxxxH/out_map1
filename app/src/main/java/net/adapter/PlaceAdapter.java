@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 
 import net.basicmodel.R;
 import net.entiy.BigPlaceEntity;
+import net.entiy.SmallPlaceEntity;
 import net.utils.OnItemClickListener;
 import net.utils.ScreenUtils;
 
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
 
     ArrayList<BigPlaceEntity> data;
+    ArrayList<SmallPlaceEntity> data1;
     Context context;
     Activity activity;
     OnItemClickListener listener;
@@ -34,8 +36,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         this.listener = listener;
     }
 
-    public PlaceAdapter(ArrayList<BigPlaceEntity> data, Context context, Activity activity) {
+    public PlaceAdapter(ArrayList<BigPlaceEntity> data, ArrayList<SmallPlaceEntity> data1, Context context, Activity activity) {
         this.data = data;
+        this.data1 = data1;
         this.context = context;
         this.activity = activity;
     }
@@ -51,25 +54,47 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        ViewGroup.LayoutParams params = holder.bg.getLayoutParams();
-        params.height = ScreenUtils.getScreenSize(activity)[0] / 3;
-        holder.bg.setLayoutParams(params);
-        Glide.with(context).load(data.get(position).getImageUrl()).into(holder.bg);
-        holder.title.setText(data.get(position).getTitle());
-        holder.root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (listener != null) {
-                    int pos = holder.getLayoutPosition();
-                    listener.onItemClick(holder.root, pos, "");
+        if (data != null) {
+            ViewGroup.LayoutParams params = holder.bg.getLayoutParams();
+            params.height = ScreenUtils.getScreenSize(activity)[0] / 3;
+            holder.bg.setLayoutParams(params);
+            Glide.with(context).load(data.get(position).getImageUrl()).into(holder.bg);
+            holder.title.setText(data.get(position).getTitle());
+            holder.root.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int pos = holder.getLayoutPosition();
+                        listener.onItemClick(holder.root, pos, "big");
+                    }
                 }
-            }
-        });
+            });
+        } else if (data1 != null) {
+            ViewGroup.LayoutParams params = holder.bg.getLayoutParams();
+            params.height = ScreenUtils.getScreenSize(activity)[0] / 4;
+            holder.bg.setLayoutParams(params);
+            Glide.with(context).load(data1.get(position).getImageUrl()).into(holder.bg);
+            holder.title.setText(data1.get(position).getTitle());
+            holder.root.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int pos = holder.getLayoutPosition();
+                        listener.onItemClick(holder.root, pos, "small");
+                    }
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if (data != null) {
+            return data.size();
+        } else {
+            return data1.size();
+        }
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

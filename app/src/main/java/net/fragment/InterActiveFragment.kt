@@ -1,6 +1,8 @@
 package net.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.layout_fragment_interactive.*
 import net.adapter.PlaceAdapter
+import net.basicmodel.InterActiveActivity
 import net.basicmodel.R
 import net.entiy.BigPlaceEntity
 import net.http.RequestService
@@ -25,7 +28,7 @@ import org.json.JSONObject
  *
  * Desc :
  */
-class InterActiveFragment : Fragment() , OnItemClickListener{
+class InterActiveFragment : Fragment(), OnItemClickListener {
 
     var data: ArrayList<BigPlaceEntity> = ArrayList()
     var adapter: PlaceAdapter? = null
@@ -46,11 +49,6 @@ class InterActiveFragment : Fragment() , OnItemClickListener{
         super.onViewCreated(view, savedInstanceState)
         showDlg()
         getData()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
     private fun getData() {
@@ -79,13 +77,15 @@ class InterActiveFragment : Fragment() , OnItemClickListener{
                             continue  //这种情况略过
                         }
                         if (bigPlace.isFife) {
-                            bigPlace.imageUrl = "https://lh4.googleusercontent.com/" + bigPlace.panoid
-                                .toString() + "/w400-h300-fo90-ya0-pi0/"
+                            bigPlace.imageUrl =
+                                "https://lh4.googleusercontent.com/" + bigPlace.panoid
+                                    .toString() + "/w400-h300-fo90-ya0-pi0/"
                             continue  //这种情况略过
                         } else {
-                            bigPlace.imageUrl = "https://geo0.ggpht.com/cbk?output=thumbnail&thumb=2&panoid=" + jsonObject1.getString(
-                                "panoid"
-                            )
+                            bigPlace.imageUrl =
+                                "https://geo0.ggpht.com/cbk?output=thumbnail&thumb=2&panoid=" + jsonObject1.getString(
+                                    "panoid"
+                                )
                         }
                         this.data.add(bigPlace)
                     }
@@ -100,8 +100,8 @@ class InterActiveFragment : Fragment() , OnItemClickListener{
         }.start()
     }
 
-    private fun setAdapter(data: ArrayList<BigPlaceEntity>){
-        adapter = PlaceAdapter(data,activity,activity)
+    private fun setAdapter(data: ArrayList<BigPlaceEntity>) {
+        adapter = PlaceAdapter(data, null, activity, activity)
         recycler.layoutManager = LinearLayoutManager(activity)
         recycler.adapter = adapter
         adapter!!.setListener(this)
@@ -131,7 +131,12 @@ class InterActiveFragment : Fragment() , OnItemClickListener{
     }
 
     override fun onItemClick(view: View?, position: Int, flag: String?) {
-        TODO("Not yet implemented")
+        if (TextUtils.equals(flag, "big")) {
+            val entity = data[position]
+            val intent = Intent(activity, InterActiveActivity::class.java)
+            intent.putExtra("data", entity)
+            activity?.startActivity(intent)
+        }
     }
 
 }
